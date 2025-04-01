@@ -2,14 +2,14 @@
 capstone case study
 
 # Backgroud
-A fictional company, Cyclistic
-Business goal: How to maximizing the number of annual memberships (convert casual riders into members)
-Data analysis: Gain insights to business, tell how casual riders and members use bikes differently? give strategic suggestions
-Raw data link: https://divvy-tripdata.s3.amazonaws.com/index.html
+* A fictional company, Cyclistic
+* Business goal: How to maximizing the number of annual memberships (convert casual riders into members)
+* Data analysis: Gain insights to business, tell how casual riders and members use bikes differently? give strategic suggestions
+* Raw data link: https://divvy-tripdata.s3.amazonaws.com/index.html
 
 # Data analyze & sharing
-Both the average_ride_time and average_ride_length of casual riders are much bigger than members. 
-Saturday and Sunday: 1) Maximum ride time and length 2) Most frequently ride occurring.
+* Both the average_ride_time and average_ride_length of casual riders are much bigger than members. 
+* Saturday and Sunday: 1) Maximum ride time and length 2) Most frequently ride occurring.
 
 ![Tableau_dashboard_insights](https://github.com/user-attachments/assets/3319f377-1d95-4a63-865e-242532139024)
 
