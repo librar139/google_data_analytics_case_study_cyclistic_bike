@@ -1,0 +1,125 @@
+#library readxl and tidyverse packages
+library(readxl)
+library(tidyverse)
+
+#import rawdata sheet
+m3_2024 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202403-divvy-tripdata.xlsx")
+m4_2024 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202404-divvy-tripdata.xlsx")
+m5_2024 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202405-divvy-tripdata.xlsx")
+m6_2024 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202406-divvy-tripdata.xlsx")
+m7_2024 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202407-divvy-tripdata.xlsx")
+m8_2024 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202408-divvy-tripdata.xlsx")
+m9_2024 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202409-divvy-tripdata.xlsx")
+m10_2024 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202410-divvy-tripdata.xlsx")
+m11_2024 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202411-divvy-tripdata.xlsx")
+m12_2024 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202412-divvy-tripdata.xlsx")
+m1_2025 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202501-divvy-tripdata.xlsx")
+m2_2025 <- read_excel("C:/Users/xwPC4/Desktop/Startup/Wenjie/Google data analytics portfolios/capstone track A/case 1/raw_data_20250331_v1/xlxs/202502-divvy-tripdata.xlsx")
+
+
+#cleandata, drop columns contains 'station'
+m3_2024$start_station_name <- NULL
+m3_2024$start_station_id <- NULL
+m3_2024$end_station_name <- NULL
+m3_2024$end_station_id <- NULL
+
+m4_2024$start_station_name <- NULL
+m4_2024$start_station_id <- NULL
+m4_2024$end_station_name <- NULL
+m4_2024$end_station_id <- NULL
+
+m5_2024$start_station_name <- NULL
+m5_2024$start_station_id <- NULL
+m5_2024$end_station_name <- NULL
+m5_2024$end_station_id <- NULL
+
+m6_2024$start_station_name <- NULL
+m6_2024$start_station_id <- NULL
+m6_2024$end_station_name <- NULL
+m6_2024$end_station_id <- NULL
+
+m7_2024$start_station_name <- NULL
+m7_2024$start_station_id <- NULL
+m7_2024$end_station_name <- NULL
+m7_2024$end_station_id <- NULL
+
+m8_2024$start_station_name <- NULL
+m8_2024$start_station_id <- NULL
+m8_2024$end_station_name <- NULL
+m8_2024$end_station_id <- NULL
+
+m9_2024$start_station_name <- NULL
+m9_2024$start_station_id <- NULL
+m9_2024$end_station_name <- NULL
+m9_2024$end_station_id <- NULL
+
+m10_2024$start_station_name <- NULL
+m10_2024$start_station_id <- NULL
+m10_2024$end_station_name <- NULL
+m10_2024$end_station_id <- NULL
+
+m11_2024$start_station_name <- NULL
+m11_2024$start_station_id <- NULL
+m11_2024$end_station_name <- NULL
+m11_2024$end_station_id <- NULL
+
+m12_2024$start_station_name <- NULL
+m12_2024$start_station_id <- NULL
+m12_2024$end_station_name <- NULL
+m12_2024$end_station_id <- NULL
+
+m1_2025$start_station_name <- NULL
+m1_2025$start_station_id <- NULL
+m1_2025$end_station_name <- NULL
+m1_2025$end_station_id <- NULL
+
+m2_2025$start_station_name <- NULL
+m2_2025$start_station_id <- NULL
+m2_2025$end_station_name <- NULL
+m2_2025$end_station_id <- NULL
+
+#combine all rows to one table
+past_12_months <- bind_rows(m3_2024, m4_2024, m5_2024, m6_2024, m7_2024, m8_2024, m9_2024, m10_2024, m11_2024, m12_2024, m1_2025, m2_2025)
+
+#Convert date time to time hms only
+past_12_months$ride_length <- hms::as.hms(past_12_months$ride_length)
+past_12_months$ride_length <- seconds(past_12_months$ride_length)
+past_12_months$ride_length <- as.numeric(past_12_months$ride_length)
+
+
+# Descriptive analysis on ride_length (all figures in seconds)
+mean(past_12_months$ride_length) #straight average (total ride length / rides)
+median(past_12_months$ride_length) #midpoint number in the ascending array of ride lengths
+max(past_12_months$ride_length) #longest ride
+min(past_12_months$ride_length) #shortest ride
+
+past_12_months %>%
+  mean(ride_length)
+
+
+summary(past_12_months$ride_length)
+
+
+# Compare members and casual users
+aggregate(past_12_months$ride_length ~ past_12_months$member_casual, FUN = mean)
+aggregate(past_12_months$ride_length ~ past_12_months$member_casual, FUN = median)
+aggregate(past_12_months$ride_length ~ past_12_months$member_casual, FUN = max)
+aggregate(past_12_months$ride_length ~ past_12_months$member_casual, FUN = min)
+
+# Now, let's run the average ride time by each day for members vs casual users
+aggregate(past_12_months$ride_length ~ past_12_months$member_casual + past_12_months$day_of_week, FUN = mean)
+
+# Let's create a visualization for average duration
+past_12_months %>%
+  mutate(weekday = wday(started_at, label = TRUE)) %>%
+  group_by(member_casual, weekday) %>%
+  summarise(number_of_rides = n()
+            ,average_duration = mean(ride_length)) %>%
+  arrange(member_casual, weekday) %>%
+  ggplot(aes(x = weekday, y = average_duration, fill = member_casual)) +
+  geom_col(position = "dodge")
+
+#export
+counts <- aggregate(past_12_months$ride_length ~ past_12_months$member_casual +
+                      past_12_months$day_of_week, FUN = mean)
+write.csv(counts, file = 'avg_ride_length.csv')
